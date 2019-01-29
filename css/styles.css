@@ -1,0 +1,54 @@
+/* global page styles */
+html, body {
+  background: #fff;
+  font-family: arial;
+}
+
+/* global main div styles */
+.main {
+  text-align: center;
+  width: 90%;
+  background: #eaeaea;
+  border: 4px solid black;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+
+/* global table styles */
+#_22033_ {
+  margin: 0 auto 25px auto;
+  width: 25%;
+  padding-bottom: 25px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+}
+
+/* global tr, td table styles */
+#_22033_ th,
+#_22033_ td {
+  border: 2px solid black;
+}
+
+#_22033_ th {
+  padding: 12px 0;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 20px;
+}
+
+#_22033_ td {
+  font-size: 18px;
+}
+
+/* global button styles */
+button {
+  border: none;
+  border-radius: 15px;
+  background: green;
+  margin-right: 5px;
+  padding: 10px 15px;
+}
+
+button:hover {
+  outline: none;
+}
