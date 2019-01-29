@@ -15,7 +15,7 @@ html, body {
 }
 
 /* global table styles */
-#_22033_ {
+#res_table {
   margin: 0 auto 25px auto;
   width: 25%;
   padding-bottom: 25px;
@@ -24,19 +24,19 @@ html, body {
 }
 
 /* global tr, td table styles */
-#_22033_ th,
-#_22033_ td {
+#res_table th,
+#res_table td {
   border: 2px solid black;
 }
 
-#_22033_ th {
+#res_table th {
   padding: 12px 0;
   background-color: #4CAF50;
   color: white;
   font-size: 20px;
 }
 
-#_22033_ td {
+#res_table td {
   font-size: 18px;
 }
 
