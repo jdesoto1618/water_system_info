@@ -49,3 +49,8 @@ button {
   padding: 10px 15px;
   font-weight: bold;
 }
+
+/* remove blue outline on button click */
+button:focus {
+  outline: none;
+}
