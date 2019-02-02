@@ -1,7 +1,7 @@
 /* global page styles */
 html, body {
   background: #fff;
-  font-family: arial;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 /* global main div styles */
@@ -14,17 +14,8 @@ html, body {
   margin: 0 auto;
 }
 
-/* styles for page title h1 */
-#res_number {
-  font-size: 42px;
-}
-
 /* global table styles */
 #res_table {
-  margin: 0 auto 25px auto;
-  width: 30%;
-  padding-bottom: 25px;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   border: 4px solid black;
 }
@@ -37,15 +28,9 @@ html, body {
 
 /* global table header styles */
 #res_table th {
-  padding: 12px 0;
   background-color: #ffb4b4;
   color: #000;
-  font-size: 25px;
   width: 33%;
-}
-
-#res_table td {
-  font-size: 18px;
 }
 
 /* global button styles */
@@ -53,10 +38,7 @@ button {
   border: none;
   border-radius: 20px;
   background: #33c6ff;
-  margin: 0 5px 10px 5px;
-  padding: 10px 15px;
   font-weight: bold;
-  font-size: 16px;
 }
 
 /* remove blue outline on button click */
@@ -68,3 +50,106 @@ button:focus {
 button:active {
   background: #21a7f9;
 }
+
+/* media queries for screens larger than 768px */
+@media only screen and (min-width: 768px) {
+
+  /* styles for page title h1 on large screens */
+  #res_number {
+    font-size: 42px;
+  }
+
+  /* table styles for large screens */
+  #res_table {
+    margin: 0 auto 25px auto;
+    width: 60%;
+    padding-bottom: 25px;
+  }
+
+  /* table header styles for large screens */
+  #res_table th {
+    padding: 12px 0;
+    font-size: 25px;
+  }
+
+  /* table row font size for large screens */
+  #res_table td {
+    font-size: 18px;
+  }
+
+  /* button styles for large screens */
+  button {
+    margin: 0 5px 10px 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+}
+/* ends media queries for large screens */
+
+/* media queries for tablets, 600 - 767px */
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  /* styles for page title h1 on tablets */
+  #res_number {
+    font-size: 36px;
+  }
+
+  /* table styles on tablets */
+  #res_table {
+    margin: 0 auto 25px auto;
+    width: 70%;
+    padding-bottom: 25px;
+  }
+
+  /* table header styles for tablets */
+  #res_table th {
+    padding: 12px 0;
+    font-size: 20px;
+  }
+
+  /* table row font size for tablets */
+  #res_table td {
+    font-size: 18px;
+  }
+
+  /* button styles for tablets */
+  button {
+    margin: 0 2px 10px 2px;
+    padding: 5px 15px;
+    font-size: 12px;
+  }
+}
+/* ends media queries for tablets */
+
+/* media queries for mobile, up to 599px */
+@media only screen and (max-width: 599px) {
+  /* styles for page title h1 on mobile */
+  #res_number {
+    font-size: 32px;
+  }
+
+  /* table styles on mobile */
+  #res_table {
+    margin: 0 auto 25px auto;
+    width: 85%;
+    padding-bottom: 25px;
+  }
+
+  /* table header styles for mobile */
+  #res_table th {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  /* table row font size for mobile */
+  #res_table td {
+    font-size: 14px;
+  }
+
+  /* button styles for mobile */
+  button {
+    margin: 0 2px 10px 2px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+}
+/* ends media queries for mobile */
