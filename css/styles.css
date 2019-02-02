@@ -5,7 +5,7 @@ html, body {
 }
 
 /* global main div styles */
-.main {
+#main {
   text-align: center;
   width: 90%;
   background: #eaeaea;
@@ -45,10 +45,7 @@ button {
   border: none;
   border-radius: 15px;
   background: green;
-  margin-right: 5px;
+  margin: 0 5px 10px 0;
   padding: 10px 15px;
-}
-
-button:hover {
-  outline: none;
+  font-weight: bold;
 }

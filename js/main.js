@@ -1,4 +1,177 @@
-// set reservoir objects and their capacities
+// get the text of any button clicked
+function get_text() {
+  // getElementsByTagName returns a collection, just as in getElementsByClassName
+  var buttons = document.getElementsByTagName('button');
+  // save the number of buttons in the document
+  var length = buttons.length, i;
+  // save the table header innerHTML to a var
+  var theader_txt = document.getElementById('table_header');
+  // loop through the collection returned by getElementsByTagName
+  for (i = 0; i < length; i++) {
+    buttons[i].onclick = function () {
+      // check to see which res button is clicked
+      if(this.innerText === '1264') {
+        // update table header to include clicked reservoir number
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+        // update table header to include clicked reservoir number
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+      } else if(this.innerText === '13151') {
+        // update table header to include clicked reservoir number
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+        // create the 13151 reservoir table
+        createRows();
+      } else if(this.innerText === '13154') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '20813') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '20814') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '200814') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '200815') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '22033') {
+        // update table header to include clicked reservoir number
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+        // create the 22033 reservoir table
+        createRows();
+      } else if(this.innerText === '24140') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '25191') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '27916') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '28150') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '31901') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '31902') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '32939') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '33710') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '33930') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '43210') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '43610') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '43626') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '51770') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '51771') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '51772') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '52698') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '53116') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '53310') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '62310') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '62518') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else if(this.innerText === '63210') {
+        theader_txt.innerHTML = this.innerText + ' Volume Table';
+        // remove any table rows already present
+        removeRows();
+      } else {
+        console.log('Reservoir not found!');
+      } // ends reservoir if statements
+    } // ends buttons onclick function
+  } // ends for loop through buttons
+} // ends get_text function
+
+// add buttons to the dom for each reservoir in the res_cap object
+document.addEventListener('DOMContentLoaded', function(event) {
+  // save the page title to a var
+  var page_title = document.getElementById('res_number');
+  // set the default h1
+  page_title.innerHTML = 'Reservoir Data';
+  // save object's keys in the keys variable
+  var reservoirs = Object.keys(res_cap);
+  // save the object length to a var
+  var length = reservoirs.length, i;
+  // create a document fragment. this will be added to the entire document
+  var docFrag = document.createDocumentFragment();
+  // loop through all object's keys
+  for (i = 0; i < length; i++) {
+    // create a button object in the markup for each object's key
+    var button = document.createElement('button');
+    // set the value of each created button
+    button.setAttribute('value', reservoirs[i]);
+    // set the button text to also be from the object keys
+    button.innerText = reservoirs[i];
+    // append to the docFrag each newly generated button
+    docFrag.appendChild(button);
+  } // ends looping through all object keys to create buttons
+  // append to the entire document all the buttons contained in the docFrag
+  document.getElementById('main').appendChild(docFrag);
+  // now that all buttons are on the dom, get their inner text values on click
+  get_text();
+}); // ends domcontentloaded event listener
+
+// set reservoir numbers and their capacities as an object
 var res_cap = {
   1264    : 500000,
   13151   : 1710189,
@@ -29,47 +202,69 @@ var res_cap = {
   62518   : 272600,
   63210   : 590902,
 }
- // volume in gallons at 1 foot increments, ascending order, 1264
-var gallons_1264 = [
-  13267,
-  29387,
-  48740,
-  71710,
-  98678,
-  130027,
-  166139,
-  207396,
-  254180,
-  306874,
-  365860,
-  431519,
-  504235,
-  584389,
-  672364,
-  759949,
-  840821,
-  921692,
-  1002564,
-  1069687
-];
 // save the keys of the res_obj; these are all the reservoirs. note these are saved as strings
 var reservoirs = Object.keys(res_cap);
-// function to loop through each reservoir
-// function eachRes(reservoirs) {
-//   for(var i=0; i<length; i++) {
-//     return reservoirs[i];
-//   }
-// }
-// reverse the order of array elements in the gallons_1264 array since this needs to be feet down
-var rev_1264_gallons = gallons_1264.reverse();
-// function to create the table rows based on button click at bottom of page
-function createRows(gallons) {
-  // update the table header with the clicked reservoir
+// volume in gallons at 1 foot increments, ascending order, 22033
+var gal_22033 =
+[
+  1069687,
+  1002564,
+  921692,
+  840821,
+  759949,
+  672364,
+  584389,
+  504235,
+  431519,
+  365860,
+  306874,
+  254180,
+  207396,
+  166139,
+  130027,
+  98678,
+  71710,
+  48740,
+  29387,
+  13267
+];
 
+// volume in gallons at 1 foot increments, descending order for res 13151
+var gal_13151 =
+[
+  1661143,
+  1504086,
+  1356691,
+  1218663,
+  1089705,
+  969521,
+  857815,
+  754292,
+  658655,
+  570607,
+  489854,
+  416098,
+  349044,
+  288395,
+  233856,
+  185131,
+  141911,
+  103907,
+  70913,
+  42725,
+  19438,
+  3764,
+  1049
+];
+
+// function to create the table rows based on button click at bottom of page
+function createRows() {
+  // save the table to a var
+  var table = document.getElementById('res_table');
   // initialize looping variable and object length
-  var i, length = gallons.length - 1;
+  var i, length = gal_22033.length - 1;
   // save table to a var. select the first occurrence of tbody element with [0]
-  var tableRef = document.getElementById('res_table').getElementsByTagName('tbody')[0];
+  var tableRef = table.getElementsByTagName('tbody')[0];
   // loop through gallons array to get depths
   for(i = 0; i <= length; i++) {
     // save new depth row tr to a variable. this generates a tr
@@ -82,10 +277,10 @@ function createRows(gallons) {
     var percTD = newRows.insertCell(2);
     // create a text node for the depthTD to hold the feet down increments
     var depthText = document.createTextNode(i + '\' down');
-    // create a text node for the galTD. get this from the gallons_1264 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down
-    var galText = document.createTextNode(rev_1264_gallons[i]);
+    // create a text node for the galTD. get this from the gallons_22033 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down
+    var galText = document.createTextNode(gal_22033[i]);
     // create a text node for the percTD. use the calcPerc function to generate each percent at the feet down increments
-    var percText = document.createTextNode(calcPerc(rev_1264_gallons)[i] + '%');
+    var percText = document.createTextNode(calcPerc(gal_22033)[i],  + '%');
     // add the text to the newly generated depthTD
     depthTD.appendChild(depthText);
     // add the text to the newly generated galTD
@@ -95,11 +290,17 @@ function createRows(gallons) {
   } // ends for loop to loop through gallons for each reservoir
 } // ends createRows function
 
-// create the table for 1264 reservoir
-createRows(rev_1264_gallons);
+// function to remove rows before generating a new table
+function removeRows() {
+  // get the old tbody from the dom
+  var old_tbody = document.getElementById('table_body');
+  // replace the text of all the rows with empty strings
+  old_tbody.innerText = '';
+}
 
 // function to calculate the percentages of the reservoirs at each feet increment
 function calcPerc(gallons) {
+  // res_cap[reservoir] = gallon capacity for passed in reservoir
   // store length of gallons array passed into this function
   var length = gallons.length;
   // initialize variables
@@ -107,131 +308,7 @@ function calcPerc(gallons) {
   // loop through all gallon values from the array passed in
   for(i = 0; i < length; i++) {
     percents.push(((gallons[i]/1069687)*100).toFixed(2));
-  } // ends 1264 percents for loop
+  } // ends 22033 percents for loop
   // return the percentages
   return percents;
 } // ends calPerc function
-
-// adds buttons to the dom for each reservoir in the res_cap object
-document.addEventListener("DOMContentLoaded", function(event) {
-  // save the page title to a var
-  var page_title = document.getElementById('res_number');
-  // set the default h1
-  page_title.innerHTML = 'Reservoir Data';
-  // save object's keys in the keys variable
-  var keys = Object.keys(res_cap);
-  // save the object length to a var
-  var length = keys.length;
-  var docFrag = document.createDocumentFragment();
-  for (var i = 0; i < keys.length; i++) {
-    var button = document.createElement('button');
-    button.setAttribute('value', keys[i]);
-    button.setAttribute('id', keys[i]);
-    button.innerHTML = keys[i];
-    docFrag.appendChild(button);
-  }
-  document.getElementById('main').appendChild(docFrag);
-
-//   document.getElementById(keys[i]).addEventListener('click', function() {
-//     var fired_button = this.value;
-//     alert(fired_button);
-// });
-}); // ends content loaded event listener
-
-// convert capacity to MG and display the result as the page title when an option is clicked
-// function toMG() {
-//   var theader = document.getElementById('table_header');
-//   // set the table header to the clicked reservoir from the options
-//   // this needs to be able to grab the value of the buttons clicked
-//   // theader.innerHTML = 'Volume Table - ' + '<br/>' + 1000000).toFixed(2) + ' MG';
-// } // ends toMG function
-// toMG();
-// function to add all the reservoirs as options to the select on page title
-function addOptions(obj) {
-  // instantiate new empty array to hold the res capacities
-  var caps = [];
-  // + '<br/>' + '<select id="reservoirs"></select>';
-  // save the select to a var
-  // var select = document.getElementById('reservoirs');
-  // add to the select all the reservoirs from the object
-  // for (var i = 0; i < length; i++){
-  //   // add each reservoir to the select as options, using new Option constructor
-  //   var opt = new Option(keys[i], keys[i]);
-  //   // append each option to the select
-  //   select.appendChild(opt);
-  // } // ends for loop to add all options to select dropdown
-  // set the initial dropdown value to nothing
-  // select.value = '';
-  // get the clicked option value from the reservoir select dropdown
-  // select.onchange = function() {
-    // save clicked option to a var
-    // var selected_res = parseInt(select.options[select.selectedIndex].value,10);
-    // check which reservoir is clicked from the options
-  // if(selected_res === 1264) {
-    // array to hold all gallon values... magic mumbers :(
-    var gallons = [
-      13267,
-      29387,
-      48740,
-      71710,
-      98678,
-      130027,
-      166139,
-      207396,
-      254180,
-      306874,
-      365860,
-      431519,
-      504235,
-      584389,
-      672364,
-      759949,
-      840821,
-      921692,
-      1002564,
-      1069687
-    ];
-    var length = gallons.length;
-    var i, percents = [];
-    // for(i = 0; i < length; i++) {
-    //   percents.push(((gallons[i]/1069687)*100).toFixed(2));
-    //   document.getElementsByClassName('ft_up')[i].innerHTML = percents[i] + '%';
-    // } // ends for loop for 1264 res
-  // } else if (selected_res === 13151) {
-    // array to hold all gallon values... magic mumbers :(
-    var gallons = [
-      1049,
-      3764,
-      19438,
-      42725,
-      70913,
-      103907,
-      141911,
-      185131,
-      233856,
-      288395,
-      349044,
-      416098,
-      489854,
-      570607,
-      658655,
-      754292,
-      857815,
-      969521,
-      1089705,
-      1218663,
-      1356691,
-      1504086,
-      1661143,
-      1710189
-    ];
-    var length = gallons.length;
-    var i, percents = [];
-    // for(i = 0; i < length; i++) {
-    //   percents.push(((gallons[i]/1710189)*100).toFixed(2));
-    //   document.getElementsByClassName('ft_up')[i].innerHTML = percents[i] + '%';
-    // } // ends for loop for 13151 res
-  // }
-} // ends addOptions function
-
-// addOptions(res_cap);
