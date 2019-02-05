@@ -1,3 +1,42 @@
+// function to calculate the gallons and percentages for reservoir 20814
+function vol_20814() {
+  // area of a trapezoid needs bases and a height. these numbers were derived using trig specifically for 20814
+  var t_section = (1/0.305730681), t_middle = 30, top_base;
+  var bottom_base = 30, to_gallons = 635.8;
+  var volumes_percents = [], volumes_20814 = [], area;
+  // loop through reservoir levels to calculate the gallons at each foot down, starting at 16
+  for(var i = 16; i >= 1; i--) {
+    t_section = t_section*i;
+    top_base = ((t_section*2) + t_middle);
+    area = (((top_base + bottom_base)*0.5)*i);
+    volumes_20814.push(Math.round(area*to_gallons));
+    // reset t_section value back to original once the calculation for this level is done
+    t_section = (1/0.305730681);
+  }
+  // now, loop through the resulting volumes and push their percentages to an array
+  for(var j = 0; j < volumes_20814.length; j++) {
+    volumes_percents.push(((volumes_20814[j]/837564)*100).toFixed(2));
+  }
+  return [volumes_20814, volumes_percents];
+} // ends volume function for 20814
+
+// function to calculate the volume of 62518. since this res is an elevated steel tank, operators think of the water level in terms of feet up, rather than feet down. for loop reflects this difference
+function vol_62518() {
+  // area of a right cylinder is pi*r*r, volume is area*height. This reservoir is roughly 32 feet tall
+  var height = 31, pi = Math.PI, radius = 38.8/2, to_gallons = 7.48;
+  // declare other variables
+  var area, volumes = [], i;
+  // area of a cross section of reservoir, in gallons
+  area = Math.round((pi)*(radius)*(radius)*to_gallons);
+  // calculate volume at each foot down
+  for(i = 1; i <= 31; i++) {
+    volumes.push(area*i);
+    // reset value for cross sectional area after each volume calculation
+    area = Math.round((pi)*(radius)*(radius)*to_gallons);
+  }
+  return volumes;
+} // ends volume function for 62518
+
 // get the text of any button clicked
 function get_text() {
   // getElementsByTagName returns a collection, just as in getElementsByClassName
@@ -46,7 +85,6 @@ function get_text() {
         removeRows();
         // create the 20814 reservoir table
         createRows(gal_20814, res_cap[this.innerText]);
-        alert('No information available for this reservoir');
       } else if(this.innerText === '200814') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -204,8 +242,7 @@ function get_text() {
         // remove any table rows already present
         removeRows();
         // create the 62518 reservoir table, send the gal_62518 array to this function
-        createRows(gal_62518, res_cap[this.innerText]);
-        alert('No information available for this reservoir');
+        ftUpRows(gal_62518, res_cap[this.innerText]);
       } else if(this.innerText === '63210') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -255,7 +292,8 @@ var res_cap = {
   13151   : 1710189,
   13154   : 5098599,
   20813   : 1009625,
-  20814   : 840000,
+  // get the returned volumes array from vol_20814[0], then access the first entry with a second [0]
+  20814   : vol_20814()[0][0],
   200814  : 1056231,
   200815  : 912510,
   22033   : 1069687,
@@ -277,7 +315,8 @@ var res_cap = {
   52698   : 1018576,
   53116   : 782764,
   62310   : 556293,
-  62518   : 272600,
+  // grab the last entry from the returned volumes from the function using vol_62518()[vol_62518().length - 1]
+  62518   : vol_62518()[vol_62518().length - 1],
   63210   : 590902,
 }
 // save the keys of the res_obj; these are all the reservoirs. note these are saved as strings
@@ -360,12 +399,10 @@ var gal_20813 =
   71858,
   34367
 ];
-// volume in gallons at 1 foot decrements, ascending order for res 20814
-var gal_20814 =
-[
 
-];
-// volume in gallons at 1 foot increments, ascending order, 200814
+// volume in gallons at 1 foot down increments, ascending order for res 20814
+var gal_20814 = vol_20814()[0];
+// volume in gallons at 1 foot down increments, ascending order, 200814
 var gal_200814 =
 [
   1056231, // 0 feet down
@@ -389,7 +426,7 @@ var gal_200814 =
   50334,
   23990
 ];
-// volume in gallons at 1 foot increments, ascending order, 200815. no special entry needed for 100% full
+// volume in gallons at 1 foot down increments, ascending order, 200815. no special entry needed for 100% full
 var gal_200815 =
 [
   912510,
@@ -753,11 +790,8 @@ var gal_62310 =
   48466,
   24996
 ];
-// volume in gallons at 1 foot increments, ascending order, 62518
-var gal_62518 =
-[
-
-];
+// volume in gallons at 1 foot down increments, ascending order, 62518
+var gal_62518 = vol_62518();
 // volume in gallons at 1 foot increments, ascending order, 63210
 var gal_63210 =
 [
@@ -777,6 +811,40 @@ var gal_63210 =
   45382,
   22381
 ];
+// function to create table rows for elevated steel tanks
+function ftUpRows(reservoir_gallons, reservoir_capacity) {
+  // save the function call to calculate the percents to a var. this allowed me to loop through the resulting array of percents in the for loop where new rows are created, and then addeach percent to a row
+  var res_percents = calcPerc(reservoir_gallons, reservoir_capacity);
+  // save the table to a var
+  var table = document.getElementById('res_table');
+  // initialize looping variable and object length
+  var i, length = reservoir_gallons.length - 1;
+  // save table to a var. select the first occurrence of tbody element with [0]
+  var tableRef = table.getElementsByTagName('tbody')[0];
+  // loop through gallons array to get depths
+  for(i = 0; i <= length; i++) {
+    // save new depth row tr to a variable. this generates a tr
+    var newRows = tableRef.insertRow(tableRef.rows.length);
+    // insert a cell in the depthRow at index 0, the first td for this tr
+    var depthTD = newRows.insertCell(0);
+    // insert a cell in the galRow at index 1, the second td for this tr
+    var galTD = newRows.insertCell(1);
+    // insert a cell in the row at index 2, the third td for this tr
+    var percTD = newRows.insertCell(2);
+    // create a text node for the depthTD to hold the feet up increments. start this one at 1 foot up, use i+1
+    var depthText = document.createTextNode((i+1) + '\' up');
+    // create a text node for the galTD. get this from the gallons_22033 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down
+    var galText = document.createTextNode(reservoir_gallons[i]);
+    // create a text node for the percTD. use the calcPerc function to generate each percent at the feet down increments. takes 2 parameters, the reservoir gallons at each foot down, and the reservoir capacity
+    var percText = document.createTextNode(res_percents[i]);
+    // add the text to the newly generated depthTD
+    depthTD.appendChild(depthText);
+    // add the text to the newly generated galTD
+    galTD.appendChild(galText);
+    // add the text from the calcPerc function to the newly generated percTD
+    percTD.appendChild(percText);
+  } // ends for loop to loop through gallons for each reservoir
+} // ends ftUpRows function
 
 // function to create the table rows based on button click at bottom of page
 function createRows(reservoir_gallons, reservoir_capacity) {
