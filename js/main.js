@@ -14,28 +14,30 @@ function vol_20814() {
     t_section = (1/0.305730681);
   }
   // now, loop through the resulting volumes and push their percentages to an array
-  for(var j = 0; j < volumes_20814.length; j++) {
-    volumes_percents.push(((volumes_20814[j]/837564)*100).toFixed(2));
-  }
-  return [volumes_20814, volumes_percents];
+  // for(var j = 0; j < volumes_20814.length; j++) {
+  //   volumes_percents.push(((volumes_20814[j]/837564)*100).toFixed(2));
+  // }
+  // return [volumes_20814, volumes_percents];
+  return volumes_20814
 } // ends volume function for 20814
 
 // function to calculate the volume of 62518. since this res is an elevated steel tank, operators think of the water level in terms of feet up, rather than feet down. for loop reflects this difference
-function vol_62518() {
-  // area of a right cylinder is pi*r*r, volume is area*height. This reservoir is roughly 32 feet tall
-  var height = 31, pi = Math.PI, radius = 38.8/2, to_gallons = 7.48;
+function steel_tank_vols(height, radius) {
+  // area of a circle is pi*r*r, volume of a right cylinder is area*height
+  var height, pi = Math.PI, radius, to_gallons = 7.48;
   // declare other variables
   var area, volumes = [], i;
   // area of a cross section of reservoir, in gallons
   area = Math.round((pi)*(radius)*(radius)*to_gallons);
   // calculate volume at each foot down
-  for(i = 1; i <= 31; i++) {
+  for(i = 1; i <= height; i++) {
     volumes.push(area*i);
     // reset value for cross sectional area after each volume calculation
     area = Math.round((pi)*(radius)*(radius)*to_gallons);
   }
-  return volumes;
-} // ends volume function for 62518
+  // return all the volume values array, call the last entry in the array to use for the total volume in a steel tank at 100% full
+  return volumes
+} // ends volume function for any elevated steel tank
 
 // get the text of any button clicked
 function get_text() {
@@ -140,15 +142,14 @@ function get_text() {
         // remove any table rows already present
         removeRows();
         // create the 31901 reservoir table, send the gal_31901 array to this function
-        createRows(gal_31901, res_cap[this.innerText]);
-        alert('No information available for this reservoir');
+        ftUpRows(gal_31901, res_cap[this.innerText]);
       } else if(this.innerText === '31902') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
         // remove any table rows already present
         removeRows();
         // create the 31902 reservoir table, send the gal_31902 array to this function
-        createRows(gal_31902, res_cap[this.innerText]);
+        ftUpRows(gal_31902, res_cap[this.innerText]);
       } else if(this.innerText === '32939') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -292,8 +293,8 @@ var res_cap = {
   13151   : 1710189,
   13154   : 5098599,
   20813   : 1009625,
-  // get the returned volumes array from vol_20814[0], then access the first entry with a second [0]
-  20814   : vol_20814()[0][0],
+  // get the returned volumes array from vol_20814, then access the first entry with [0]. this will return the 100% full gallons for this reservoir
+  20814   : vol_20814()[0],
   200814  : 1056231,
   200815  : 912510,
   22033   : 1069687,
@@ -301,8 +302,9 @@ var res_cap = {
   25191   : 125905,
   27916   : 998033,
   28150   : 307523,
-  31901   : 77112,
-  31902   : 77112,
+  // function call for steel tanks using the parameters for these two reservoirs, including the last value to use for the percents
+  31901   : steel_tank_vols(23, 12.5)[steel_tank_vols(23, 12.5).length - 1],
+  31902   : steel_tank_vols(23, 12.5)[steel_tank_vols(23, 12.5).length - 1],
   32939   : 5028131,
   33710   : 557152,
   33930   : 928917,
@@ -315,8 +317,8 @@ var res_cap = {
   52698   : 1018576,
   53116   : 782764,
   62310   : 556293,
-  // grab the last entry from the returned volumes from the function using vol_62518()[vol_62518().length - 1]
-  62518   : vol_62518()[vol_62518().length - 1],
+  // grab the last entry from the returned volumes from the function using steel_tank_vols(31, 19.4)[steel_tank_vols(31, 19.4).length - 1]
+  62518   : steel_tank_vols(31, 19.4)[steel_tank_vols(31, 19.4).length - 1],
   63210   : 590902,
 }
 // save the keys of the res_obj; these are all the reservoirs. note these are saved as strings
@@ -399,9 +401,8 @@ var gal_20813 =
   71858,
   34367
 ];
-
 // volume in gallons at 1 foot down increments, ascending order for res 20814
-var gal_20814 = vol_20814()[0];
+var gal_20814 = vol_20814();
 // volume in gallons at 1 foot down increments, ascending order, 200814
 var gal_200814 =
 [
@@ -558,35 +559,9 @@ var gal_28150 =
   27831
 ];
 // volume in gallons at 1 foot increments, ascending order, 31901
-var gal_31901 =
-[
-
-];
+var gal_31901 = steel_tank_vols(23, 12.5);
 // volume in gallons at 1 foot increments, ascending order, 31902. no special entry needed for 100% full
-var gal_31902 =
-[
-  77112,
-  73440,
-  69768,
-  66096,
-  62424,
-  58752,
-  55080,
-  51508,
-  47736,
-  44064,
-  40392,
-  36720,
-  33048,
-  29376,
-  25704,
-  22032,
-  18360,
-  14688,
-  11016,
-  7344,
-  3672
-];
+var gal_31902 = steel_tank_vols(23, 12.5);
 // volume in gallons at 1 foot increments, ascending order, 32939. no special entry needed for 100% full
 var gal_32939 =
 [
@@ -791,7 +766,7 @@ var gal_62310 =
   24996
 ];
 // volume in gallons at 1 foot down increments, ascending order, 62518
-var gal_62518 = vol_62518();
+var gal_62518 = steel_tank_vols(31, 19.4);
 // volume in gallons at 1 foot increments, ascending order, 63210
 var gal_63210 =
 [
