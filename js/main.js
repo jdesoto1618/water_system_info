@@ -44,9 +44,22 @@ function get_text() {
   // getElementsByTagName returns a collection, just as in getElementsByClassName
   var buttons = document.getElementsByTagName('button');
   // save the number of buttons in the document
-  var length = buttons.length, i;
+  var length = buttons.length, i, j;
   // save the table header innerHTML to a var
   var theader_txt = document.getElementById('table_header');
+  // save the table body to a var so it can be customized for any reservoir
+  var table = document.getElementById('table_body');
+  // modify the table for each reservoir needing a specific incremental feet down that isn't an integer
+  function table_modify(increment) {
+    // set the first measurement that isn't an integer. table.rows will grab the row at the specified index in brackets. selecting the cells[0] means the left most td's are selected in that row. these are html collections and also have many properties. inner html and inner text are among them and therefore can be updated
+    table.rows[1].cells[0].innerText = (1 - increment).toFixed(2) + '\' feet down';
+    // table.rows[1].cells[0].innerText = '0.3\' feet down';
+    // now, loop through the rest of the table body, starting after the first row that was changed, in this case at j = 2.
+    for(j = 2; j <= table.rows.length - 1; j++) {
+      // subtracting 0.7 from j will give the correct feet down increments. to update the right cells with this value, use table.rows[j].cells[0].innerText
+      table.rows[j].cells[0].innerText = j - increment + '\' feet down';
+    }
+  } // ends table_modfy function
   // loop through the collection returned by getElementsByTagName
   for (i = 0; i < length; i++) {
     buttons[i].onclick = function () {
@@ -66,6 +79,8 @@ function get_text() {
         removeRows();
         // create the 13151 reservoir table
         createRows(gal_13151, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 13151
+        table_modify(0.7);
       } else if(this.innerText === '13154') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -73,6 +88,8 @@ function get_text() {
         removeRows();
         // create the 13154 reservoir table
         createRows(gal_13154, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 13154
+        table_modify(0.4);
       } else if(this.innerText === '20813') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -94,6 +111,8 @@ function get_text() {
         removeRows();
         // create the 200814 reservoir table
         createRows(gal_200814, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 200814
+        table_modify(0.8);
       } else if(this.innerText === '200815') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -108,6 +127,8 @@ function get_text() {
         removeRows();
         // create the 22033 reservoir table, send the gal_22033 array to this function
         createRows(gal_22033, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 22033
+        table_modify(0.2);
       } else if(this.innerText === '24140') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -115,13 +136,39 @@ function get_text() {
         removeRows();
         // create the 24140 reservoir table, send the gal_24140 array to this function
         createRows(gal_24140, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 24140
+        table_modify(0.4);
       } else if(this.innerText === '25191') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
         // remove any table rows already present
         removeRows();
         // create the 25191 reservoir table, send the gal_25191 array to this function
-        createRows(gal_25191, res_cap[this.innerText]);
+        ftUpRows(gal_25191, res_cap[this.innerText]);
+        // save the html collection of table rows from the table body to a var
+        var table_rows = document.getElementById('table_body');
+        // save the length of the number of generated table rows to a variable
+        var table_rows_length = document.getElementById('table_body').rows.length;
+        // save new row to a variable. this generates a tr at the end of the table since the length is specified
+        var newRows = table_rows.insertRow(table_rows_length);
+        // insert a cell in the depthRow at index 0, the first td for this tr
+        var depthTD = newRows.insertCell(0);
+        // insert a cell in the galRow at index 1, the second td for this tr
+        var galTD = newRows.insertCell(1);
+        // insert a cell in the row at index 2, the third td for this tr
+        var percTD = newRows.insertCell(2);
+        // create a text node for the depthTD to hold the final feet up increment
+        var depthText = document.createTextNode('14.33'+ '\' up');
+        // create a text node for the galTD, get this from the res_cap object
+        var galText = document.createTextNode(res_cap[25191]);
+        // create a text node for the percTD. since this is the 100% full level, just pass in 100.00
+        var percText = document.createTextNode('100.00');
+        // add the text node to the newly generated depthTD
+        depthTD.appendChild(depthText);
+        // add the text node to the newly generated galTD
+        galTD.appendChild(galText);
+        // add the text node to the newly generated percTD
+        percTD.appendChild(percText);
       } else if(this.innerText === '27916') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -136,6 +183,8 @@ function get_text() {
         removeRows();
         // create the 28150 reservoir table, send the gal_28150 array to this function
         createRows(gal_28150, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 28150
+        table_modify(0.9);
       } else if(this.innerText === '31901') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -164,6 +213,8 @@ function get_text() {
         removeRows();
         // create the 33710 reservoir table, send the gal_33710 array to this function
         createRows(gal_33710, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 33710
+        table_modify(0.5);
       } else if(this.innerText === '33930') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -171,6 +222,8 @@ function get_text() {
         removeRows();
         // create the 33930 reservoir table, send the gal_33930 array to this function
         createRows(gal_33930, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 33930
+        table_modify(0.5);
       } else if(this.innerText === '43210') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -185,6 +238,8 @@ function get_text() {
         removeRows();
         // create the 43610 reservoir table, send the gal_43610 array to this function
         createRows(gal_43610, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 43610
+        table_modify(0.5);
       } else if(this.innerText === '43626') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -223,6 +278,8 @@ function get_text() {
         removeRows();
         // create the 52698 reservoir table, send the gal_52698 array to this function
         createRows(gal_52698, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 52698
+        table_modify(0.8);
       } else if(this.innerText === '53116') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -237,6 +294,8 @@ function get_text() {
         removeRows();
         // create the 62310 reservoir table, send the gal_62310 array to this function
         createRows(gal_62310, res_cap[this.innerText]);
+        // modify the entries in the table to make it specific to res 62310
+        table_modify(0.55);
       } else if(this.innerText === '62518') {
         // update table header to include clicked reservoir number
         theader_txt.innerHTML = this.innerText + ' Volume Table';
@@ -251,8 +310,8 @@ function get_text() {
         removeRows();
         // create the 63210 reservoir table, send the gal_63210 array to this function
         createRows(gal_63210, res_cap[this.innerText]);
-      } else {
-        console.log('Reservoir not found!');
+        // modify the entries in the table to make it specific to res 63210
+        table_modify(0.5);
       } // ends reservoir if statements
     } // ends buttons onclick function
   } // ends for loop through buttons
@@ -506,24 +565,7 @@ var gal_24140 =
   2360
 ];
 // volume in gallons at 1 foot increments, ascending order, 25191
-var gal_25191 =
-[
-  125905, // 0 feet down
-  122977, // 0.33 feet down
-  114193, // 1.33 feet down
-  105409,
-  96625,
-  87841,
-  79057,
-  70272,
-  61488,
-  52704,
-  43920,
-  35136,
-  26352,
-  17568,
-  8784
-];
+var gal_25191 = steel_tank_vols(14.3333, 19.3333);
 // volume in gallons at 1 foot increments, ascending order, 27916. no special entry needed for 100% full
 var gal_27916 =
 [
@@ -558,7 +600,7 @@ var gal_28150 =
   57022,
   27831
 ];
-// volume in gallons at 1 foot increments, ascending order, 31901
+// volume in gallons at 1 foot increments, ascending order, 31901. no special entry needed for 100% full
 var gal_31901 = steel_tank_vols(23, 12.5);
 // volume in gallons at 1 foot increments, ascending order, 31902. no special entry needed for 100% full
 var gal_31902 = steel_tank_vols(23, 12.5);
@@ -808,9 +850,9 @@ function ftUpRows(reservoir_gallons, reservoir_capacity) {
     var percTD = newRows.insertCell(2);
     // create a text node for the depthTD to hold the feet up increments. start this one at 1 foot up, use i+1
     var depthText = document.createTextNode((i+1) + '\' up');
-    // create a text node for the galTD. get this from the gallons_22033 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down
+    // create a text node for the galTD. get this from the reservoir_gallons array.
     var galText = document.createTextNode(reservoir_gallons[i]);
-    // create a text node for the percTD. use the calcPerc function to generate each percent at the feet down increments. takes 2 parameters, the reservoir gallons at each foot down, and the reservoir capacity
+    // create a text node for the percTD. this passes each value of i into the calPerc function, saved to res_percents variable
     var percText = document.createTextNode(res_percents[i]);
     // add the text to the newly generated depthTD
     depthTD.appendChild(depthText);
@@ -829,7 +871,7 @@ function createRows(reservoir_gallons, reservoir_capacity) {
   var table = document.getElementById('res_table');
   // initialize looping variable and object length
   var i, length = reservoir_gallons.length - 1;
-  // save table to a var. select the first occurrence of tbody element with [0]
+  // save table body to a var. select the first occurrence of tbody element with [0]
   var tableRef = table.getElementsByTagName('tbody')[0];
   // loop through gallons array to get depths
   for(i = 0; i <= length; i++) {
