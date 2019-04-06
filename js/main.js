@@ -52,12 +52,12 @@ function get_text() {
   // modify the table for each reservoir needing a specific incremental feet down that isn't an integer
   function table_modify(increment) {
     // set the first measurement that isn't an integer. table.rows will grab the row at the specified index in brackets. selecting the cells[0] means the left most td's are selected in that row. these are html collections and also have many properties. inner html and inner text are among them and therefore can be updated
-    table.rows[1].cells[0].innerText = (1 - increment).toFixed(2) + '\' feet down';
+    table.rows[1].cells[0].innerText = (1 - increment).toFixed(2) + '\' down';
     // table.rows[1].cells[0].innerText = '0.3\' feet down';
     // now, loop through the rest of the table body, starting after the first row that was changed, in this case at j = 2.
     for(j = 2; j <= table.rows.length - 1; j++) {
       // subtracting 0.7 from j will give the correct feet down increments. to update the right cells with this value, use table.rows[j].cells[0].innerText
-      table.rows[j].cells[0].innerText = j - increment + '\' feet down';
+      table.rows[j].cells[0].innerText = j - increment + '\' down';
     }
   } // ends table_modfy function
   // loop through the collection returned by getElementsByTagName
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     docFrag.appendChild(button);
   } // ends looping through all object keys to create buttons
   // append to the entire document all the buttons contained in the docFrag
-  document.getElementById('main').appendChild(docFrag);
+  document.getElementById('buttons').appendChild(docFrag);
   // now that all buttons are on the dom, get their inner text values on click
   get_text();
 }); // ends domcontentloaded event listener
@@ -850,8 +850,8 @@ function ftUpRows(reservoir_gallons, reservoir_capacity) {
     var percTD = newRows.insertCell(2);
     // create a text node for the depthTD to hold the feet up increments. start this one at 1 foot up, use i+1
     var depthText = document.createTextNode((i+1) + '\' up');
-    // create a text node for the galTD. get this from the reservoir_gallons array.
-    var galText = document.createTextNode(reservoir_gallons[i]);
+    // create a text node for the galTD. get this from the reservoir_gallons array. insert commas in thousands placeholders using toLocaleString()
+    var galText = document.createTextNode(reservoir_gallons[i].toLocaleString());
     // create a text node for the percTD. this passes each value of i into the calPerc function, saved to res_percents variable
     var percText = document.createTextNode(res_percents[i]);
     // add the text to the newly generated depthTD
@@ -885,8 +885,8 @@ function createRows(reservoir_gallons, reservoir_capacity) {
     var percTD = newRows.insertCell(2);
     // create a text node for the depthTD to hold the feet down increments
     var depthText = document.createTextNode(i + '\' down');
-    // create a text node for the galTD. get this from the gallons_22033 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down
-    var galText = document.createTextNode(reservoir_gallons[i]);
+    // create a text node for the galTD. get this from the gallons_22033 array. needed to use array prototype reverse because the gallons are hardcoded from 1 foot up to full, instead of 1 foot down. use .toLocaleString() to insert commas in thousands placeholders for all numbers in gallons column
+    var galText = document.createTextNode(reservoir_gallons[i].toLocaleString());
     // create a text node for the percTD. use the calcPerc function to generate each percent at the feet down increments. takes 2 parameters, the reservoir gallons at each foot down, and the reservoir capacity
     var percText = document.createTextNode(res_percents[i]);
     // add the text to the newly generated depthTD
